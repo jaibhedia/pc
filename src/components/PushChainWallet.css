@@ -1,0 +1,63 @@
+/* PushChainWallet.css - Wallet styles for Push Chain */
+
+.wallet-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.wallet-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.wallet-address {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--text-primary, #fff);
+}
+
+.wallet-balance {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #aaa);
+}
+
+.wallet-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.wallet-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary, #aaa);
+}
+
+.wallet-stat svg {
+  font-size: 1.2rem;
+  color: var(--accent-color, #00f);
+}
+
+.wallet-stat-value {
+  font-weight: 600;
+  color: var(--text-primary, #fff);
+}
+
+.wallet-disconnect-btn {
+  padding: 0.5rem 1rem;
+  background-color: rgba(255, 0, 0, 0.2);
+  border: 1px solid rgba(255, 0, 0, 0.5);
+  border-radius: 0.5rem;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.wallet-disconnect-btn:hover {
+  background-color: rgba(255, 0, 0, 0.4);
+}
