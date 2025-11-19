@@ -111,8 +111,12 @@ const MultiplayerLobby = ({ walletAddress, onStartGame, onBack }) => {
       if (payload.eventType === 'UPDATE') {
         const updatedGame = payload.new;
         
-        // Check if someone joined (state changed from 0 to 1)
-        if (updatedGame.state === 1 && updatedGame.player2_address) {
+        // CRITICAL: Check that player2_address exists AND is different from the creator
+        const hasOpponent = updatedGame.state === 1 && 
+                            updatedGame.player2_address && 
+                            updatedGame.player2_address.toLowerCase() !== walletAddress.toLowerCase();
+        
+        if (hasOpponent) {
           console.log('🎉 Opponent joined! Starting game...');
           showNotification('Opponent joined! Starting match...', 'success');
           
@@ -130,7 +134,14 @@ const MultiplayerLobby = ({ walletAddress, onStartGame, onBack }) => {
       if (!isSubscribed || !myCreatedGame) return;
       
       const game = await supabaseService.getGame(myCreatedGame.game_id);
-      if (game && game.state === 1 && game.player2_address) {
+      
+      // CRITICAL: Check that player2_address exists AND is different from the creator
+      const hasOpponent = game && 
+                          game.state === 1 && 
+                          game.player2_address && 
+                          game.player2_address.toLowerCase() !== walletAddress.toLowerCase();
+      
+      if (hasOpponent) {
         console.log('📊 Polling detected opponent joined! Starting game...');
         clearInterval(pollInterval);
         setMyCreatedGame(null);
