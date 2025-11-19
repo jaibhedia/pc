@@ -237,18 +237,19 @@ const GameScreen = ({
   }, [stopSlashing, endSlash]);
 
   const handleTouchStart = useCallback((e) => {
-    e.preventDefault();
+    // Don't preventDefault on touch events - they're already passive
+    // This avoids "Unable to preventDefault inside passive event listener" warning
     startSlashing();
     startSlash(e.touches[0]);
   }, [startSlashing, startSlash]);
 
   const handleTouchMove = useCallback((e) => {
-    e.preventDefault();
+    // Don't preventDefault on touch events - they're already passive
     updateSlash(e.touches[0]);
   }, [updateSlash]);
 
   const handleTouchEnd = useCallback((e) => {
-    e.preventDefault();
+    // Don't preventDefault on touch events - they're already passive
     stopSlashing();
     endSlash();
   }, [stopSlashing, endSlash]);

@@ -38,7 +38,8 @@ const originalLog = console.log;
     if (
       message.includes('Unrecognized feature') ||
       message.includes('Unknown message type') ||
-      message.includes('GoTrueClient instances detected')
+      message.includes('GoTrueClient instances detected') ||
+      message.includes('Unable to preventDefault inside passive event listener')
     ) {
       return;
     }
