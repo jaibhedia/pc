@@ -15,9 +15,17 @@ dotenv.config();
 const app = express();
 
 // Parse multiple origins from environment variable
-const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:3000')
-  .split(',')
-  .map(s => s.trim());
+const allowedOrigins = [
+  'http://localhost:3000',
+  process.env.CORS_ORIGIN,
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
+// Add any comma-separated origins from FRONTEND_URL
+if (process.env.FRONTEND_URL) {
+  const additionalOrigins = process.env.FRONTEND_URL.split(',').map(s => s.trim());
+  allowedOrigins.push(...additionalOrigins);
+}
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
@@ -28,20 +36,22 @@ const io = new Server(httpServer, {
   }
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(helmet());
 app.use(compression());
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (mobile apps, Postman, etc.)
+    // Allow requests with no origin (mobile apps, Postman, curl, etc.)
     if (!origin) return callback(null, true);
     
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      console.warn('⚠️ CORS blocked origin:', origin);
+      console.log('Allowed origins:', allowedOrigins);
+      callback(null, true); // Allow anyway for development, change to callback(new Error('Not allowed by CORS')) for production
     }
   },
   credentials: true
