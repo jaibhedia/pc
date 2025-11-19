@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 /**
  * @title MultiplayerGame
  * @dev Multiplayer game contract with betting and escrow functionality
- * Migrated from Aptos Move to Push Chain Solidity
+ * Built for Push Chain - Native Solidity implementation
  */
 contract MultiplayerGame is Ownable, ReentrancyGuard {
     

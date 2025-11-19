@@ -11,6 +11,6 @@ export const aptos = new Aptos(config);
 export const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
 export const MODULE_NAME = process.env.MODULE_NAME;
 
-console.log('✅ Aptos SDK initialized');
+console.log('✅ Push Chain SDK initialized');
 console.log(`📍 Network: ${process.env.APTOS_NETWORK}`);
 console.log(`📍 Contract: ${CONTRACT_ADDRESS}`);

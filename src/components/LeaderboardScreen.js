@@ -107,7 +107,7 @@ const LeaderboardScreen = ({ onShowStartScreen }) => {
             fontSize: '1rem',
             margin: 0
           }}>
-            Scores stored permanently on Aptos blockchain
+            Scores stored permanently on Push Chain blockchain
           </p>
           {gameStats && (
             <div style={{

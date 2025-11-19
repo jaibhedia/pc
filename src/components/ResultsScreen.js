@@ -273,7 +273,7 @@ const ResultsScreen = ({
                 <div className="nft-note">
                   <span className="note-icon">ℹ️</span>
                   <span className="note-text">
-                    Your {nftEligibility.nftReward} is confirmed on-chain. View it in your Petra wallet!
+                    Your {nftEligibility.nftReward} is confirmed on-chain. View it in your Push Chain wallet!
                   </span>
                 </div>
               </div>

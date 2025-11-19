@@ -61,17 +61,9 @@ const MultiplayerLobby = ({ walletAddress, onStartGame, onBack }) => {
     });
 
     socket.on('game_joined', (game) => {
-      console.log('🎮 Game joined:', game);
-      
-      // Check if this is YOUR game that was joined (you are player1)
-      if (walletAddress && multiplayerService.compareAddresses(game.player1, walletAddress)) {
-        showNotification('Opponent joined! Starting match...', 'success');
-        setTimeout(() => {
-          onStartGame(game.game_id);
-        }, 2000);
-      } else {
-        fetchAvailableGames();
-      }
+      console.log('🎮 Socket: Game joined event:', game);
+      // Just refresh the games list - Supabase subscription handles starting the game
+      fetchAvailableGames();
     });
 
     socket.on('games_updated', (games) => {
@@ -96,52 +88,54 @@ const MultiplayerLobby = ({ walletAddress, onStartGame, onBack }) => {
 
   // Supabase real-time subscription to watch for game updates
   useEffect(() => {
-    if (!myCreatedGame || !walletAddress) return;
+    if (!myCreatedGame || !walletAddress) {
+      return;
+    }
 
     console.log('👀 Watching for opponent to join game:', myCreatedGame.game_id);
     
-    let isSubscribed = true;
+    let isActive = true;
 
-    // Subscribe to the specific game
+    // Subscribe to the specific game - THIS STARTS THE GAME FOR THE HOST
     const subscription = supabaseService.subscribeToGame(myCreatedGame.game_id, (payload) => {
-      console.log('🔔 Game update received:', payload);
+      if (!isActive) return;
       
-      if (!isSubscribed) return; // Ignore if unmounted
+      console.log('HOST: Received subscription event:', payload.eventType);
       
       if (payload.eventType === 'UPDATE') {
         const updatedGame = payload.new;
         
-        // CRITICAL: Check that player2_address exists AND is different from the creator
+        console.log('� Game update:', {
+          gameId: updatedGame.game_id,
+          state: updatedGame.state,
+          player2: updatedGame.player2_address
+        });
+        
+        // Check if opponent joined (state = 1, player2 exists and is different)
         const hasOpponent = updatedGame.state === 1 && 
                             updatedGame.player2_address && 
                             updatedGame.player2_address.toLowerCase() !== walletAddress.toLowerCase();
         
         if (hasOpponent) {
-          console.log('🎉 Opponent joined! Starting game...');
-          showNotification('Opponent joined! Starting match...', 'success');
-          
-          // Clear the created game tracker
+          console.log('HOST: Opponent joined! Starting game NOW...');
+          showNotification('Opponent found! Starting match...', 'success');
           setMyCreatedGame(null);
           
-          // Start the game immediately (both players)
+          // Start game immediately for host - NO DELAY
+          console.log('HOST: Calling onStartGame with gameId:', updatedGame.game_id);
           onStartGame(updatedGame.game_id);
+        } else {
+          console.log('HOST: Waiting - no valid opponent yet');
         }
       }
     });
     
-    // Also poll the database every second as a backup
+    // CRITICAL: Poll database as backup (Supabase real-time subscriptions can be unreliable)
     const pollInterval = setInterval(async () => {
-      if (!isSubscribed || !myCreatedGame) return;
+      if (!isActive || !myCreatedGame) return;
       
       const game = await supabaseService.getGame(myCreatedGame.game_id);
-      
-      // CRITICAL: Check that player2_address exists AND is different from the creator
-      const hasOpponent = game && 
-                          game.state === 1 && 
-                          game.player2_address && 
-                          game.player2_address.toLowerCase() !== walletAddress.toLowerCase();
-      
-      if (hasOpponent) {
+      if (game && game.state === 1 && game.player2_address) {
         console.log('📊 Polling detected opponent joined! Starting game...');
         clearInterval(pollInterval);
         setMyCreatedGame(null);
@@ -149,10 +143,10 @@ const MultiplayerLobby = ({ walletAddress, onStartGame, onBack }) => {
       }
     }, 1000);
 
-    // Cleanup subscription on unmount
+    // Cleanup
     return () => {
       console.log('🔌 Unsubscribing from game updates');
-      isSubscribed = false;
+      isActive = false;
       clearInterval(pollInterval);
       supabaseService.unsubscribe(subscription);
     };
@@ -164,7 +158,9 @@ const MultiplayerLobby = ({ walletAddress, onStartGame, onBack }) => {
   };
 
   const fetchAvailableGames = async () => {
+    console.log('🔍 Fetching available games...');
     const games = await multiplayerService.getAvailableGames();
+    console.log(`✅ Found ${games.length} available games:`, games);
     setAvailableGames(games);
   };
 
@@ -185,32 +181,46 @@ const MultiplayerLobby = ({ walletAddress, onStartGame, onBack }) => {
     }
 
     setLoading(true);
-    const result = await multiplayerService.createGame(selectedTier.id, gameService, walletAddress);
     
-    if (result.success) {
-      showNotification(`Game created! Waiting for opponent...`, 'success');
+    try {
+      const result = await multiplayerService.createGame(selectedTier.id, gameService, walletAddress);
       
-      // Track the created game to watch for opponent joining
-      setMyCreatedGame({
-        game_id: result.gameId,
-        bet_tier: selectedTier.id,
-        bet_amount: selectedTier.amount
-      });
-      
-      // Track multiplayer game creation
-      track('multiplayer_create', {
-        bet_tier: selectedTier.label,
-        bet_amount: selectedTier.amount
-      });
-      
-      await fetchPlayerStats();
-      setTimeout(async () => {
+      if (result.success) {
+        console.log('✅ Game created successfully:', result.gameId);
+        
+        // Track the created game to watch for opponent
+        setMyCreatedGame({
+          game_id: result.gameId,
+          bet_tier: selectedTier.id,
+          bet_amount: selectedTier.amount
+        });
+        
+        // Analytics
+        track('multiplayer_create', {
+          bet_tier: selectedTier.label,
+          bet_amount: selectedTier.amount
+        });
+        
+        // Show success and switch to join tab after a moment
+        showNotification('✅ Game created! Waiting for opponent...', 'success');
+        
+        // Refresh stats and games list
+        await fetchPlayerStats();
         await fetchAvailableGames();
-        setActiveTab('join');
-      }, 1000);
-    } else {
-      showNotification(`Failed to create game: ${result.error}`, 'error');
+        
+        // Switch to join tab to see your game
+        setTimeout(() => {
+          setActiveTab('join');
+        }, 1500);
+        
+      } else {
+        showNotification(`❌ Failed: ${result.error}`, 'error');
+      }
+    } catch (error) {
+      console.error('Error creating game:', error);
+      showNotification(`❌ Error: ${error.message}`, 'error');
     }
+    
     setLoading(false);
   };
 
@@ -220,10 +230,13 @@ const MultiplayerLobby = ({ walletAddress, onStartGame, onBack }) => {
       return;
     }
     
+    console.log('JOINER: Attempting to join game:', gameId);
     setLoading(true);
+    
     const result = await multiplayerService.joinGame(gameId, gameService, walletAddress);
     
     if (result.success) {
+      console.log('JOINER: Successfully joined game:', gameId);
       showNotification('Joined game! Starting match...', 'success');
       
       // Track multiplayer game join
@@ -231,10 +244,11 @@ const MultiplayerLobby = ({ walletAddress, onStartGame, onBack }) => {
         game_id: gameId
       });
       
-      // Start the game immediately for player 2
-      // The host will start via subscription or polling
+      // Start the game immediately for player 2 (joiner)
+      console.log('JOINER: Starting game NOW for gameId:', gameId);
       onStartGame(gameId);
     } else {
+      console.error('JOINER: Failed to join game:', result.error);
       showNotification(`Failed to join game: ${result.error}`, 'error');
     }
     setLoading(false);
@@ -382,6 +396,24 @@ const MultiplayerLobby = ({ walletAddress, onStartGame, onBack }) => {
             <div className="join-game-section">
               <h2 className="section-title">Available Games</h2>
               <p className="section-description">Join an open game and compete for the prize pool!</p>
+              
+              {myCreatedGame && (
+                <div className="waiting-game-banner" style={{
+                  background: 'linear-gradient(135deg, rgba(46, 216, 167, 0.2), rgba(46, 216, 167, 0.1))',
+                  border: '2px solid rgba(46, 216, 167, 0.5)',
+                  borderRadius: '12px',
+                  padding: '16px',
+                  marginBottom: '16px',
+                  textAlign: 'center'
+                }}>
+                  <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#2ED8A7', marginBottom: '8px' }}>
+                    ⏳ Your Game #{myCreatedGame.game_id} is Waiting for Opponent
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#AAA' }}>
+                    Other players will see it in the list below. The game will start automatically when someone joins!
+                  </div>
+                </div>
+              )}
               
               <button 
                 className="refresh-btn"

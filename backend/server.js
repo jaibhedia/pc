@@ -145,13 +145,14 @@ indexer.start();
 // Start server
 httpServer.listen(PORT, () => {
   console.log('');
-  console.log('🚀 Aptos Ninja Backend Server');
+  console.log('🚀 Push Ninja Backend Server');
   console.log('================================');
   console.log(`📡 Server running on port ${PORT}`);
   console.log(`🌐 API: http://localhost:${PORT}`);
   console.log(`🔌 WebSocket: http://localhost:${PORT}`);
   console.log(`🎯 Frontend: ${process.env.FRONTEND_URL}`);
-  console.log(`🔗 Contract: ${process.env.CONTRACT_ADDRESS}`);
+  console.log(`🔗 Multiplayer Contract: ${process.env.MULTIPLAYER_GAME_CONTRACT}`);
+  console.log(`🔗 NFT Contract: ${process.env.GAME_NFT_CONTRACT || 'Not set'}`);
   console.log('================================');
   console.log('');
 });

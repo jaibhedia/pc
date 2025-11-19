@@ -1,4 +1,4 @@
-# Aptos Ninja Backend (Node.js + npm)
+# Push Ninja Backend (Node.js + npm)
 
 ## Setup
 
@@ -32,7 +32,7 @@ npm run indexer
 
 ## What It Does
 
-- ✅ **Blockchain Indexer**: Uses proper Aptos SDK to index events every 10 seconds
+- ✅ **Blockchain Indexer**: Uses proper Push Chain SDK to index events every 10 seconds
 - ✅ **REST API**: Express server with game and player endpoints
 - ✅ **Real-time**: Socket.IO + Supabase subscriptions for live updates
 - ✅ **npm packages**: Full access to all npm packages (no Deno restrictions)
@@ -61,7 +61,7 @@ Frontend (React)
 Backend (Node.js + Express)
     ├─ REST API (games, players)
     ├─ Socket.IO (real-time)
-    ├─ Blockchain Indexer (Aptos SDK)
+    ├─ Blockchain Indexer (Push Chain SDK)
     └─ Supabase Client
           ↓
     Supabase Database
@@ -71,7 +71,7 @@ Backend (Node.js + Express)
 ## Benefits over Deno Edge Function
 
 ✅ **Full npm support** - Use any npm package  
-✅ **Real Aptos SDK** - No import issues  
+✅ **Real Push Chain SDK** - No import issues  
 ✅ **Easier debugging** - Standard Node.js tools  
 ✅ **More control** - Custom server configuration  
 ✅ **Socket.IO** - Better real-time than just Supabase  

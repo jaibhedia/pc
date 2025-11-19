@@ -107,7 +107,7 @@ const AchievementModal = ({
                 <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🚀</div>
                 <h3 style={{ color: '#EC796B', marginBottom: '1rem' }}>NFT Minting Coming Soon!</h3>
                 <p style={{ color: '#ccc', marginBottom: '1.5rem' }}>
-                  Soon you'll be able to mint your achievements as NFTs on the Aptos blockchain.
+                  Soon you'll be able to mint your achievements as NFTs on the Push Chain blockchain.
                 </p>
                 <div style={{
                   background: 'linear-gradient(135deg, #EC796B, #FF6B9D)',
@@ -135,7 +135,7 @@ const AchievementModal = ({
         
         <div className="achievement-modal-footer">
           <p className="citrea-info">
-            Powered by <strong>Aptos</strong> - The fastest and most secure Layer 1 blockchain
+            Powered by <strong>Push Chain</strong> - The fastest and most scalable Layer 1 blockchain
           </p>
         </div>
       </div>

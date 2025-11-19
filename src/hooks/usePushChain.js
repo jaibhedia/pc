@@ -5,7 +5,7 @@ import { track } from '@vercel/analytics';
 
 /**
  * Custom hook to initialize and manage Push Chain client
- * Replaces useAptos hook
+ * Push Chain wallet and blockchain interaction hook
  */
 export function usePushChain() {
   const walletContext = usePushWalletContext();

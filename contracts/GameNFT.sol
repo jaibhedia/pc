@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 /**
  * @title GameNFT
  * @dev NFT contract for minting game session achievements
- * Migrated from Aptos Move to Push Chain Solidity
+ * Built for Push Chain - Native Solidity implementation
  */
 contract GameNFT is ERC721, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;

@@ -68,18 +68,18 @@ export async function updateGameJoin(gameId, player2Address, joinTxHash) {
 
 /**
  * Get all available games to join (waiting for player 2)
- * Filters out games older than 1 minute
+ * Filters out games older than 5 minutes
  */
 export async function getAvailableGames(betTier = null) {
   try {
-    // Calculate timestamp for 1 minute ago
-    const oneMinuteAgo = new Date(Date.now() - 60000).toISOString();
+    // Calculate timestamp for 5 minutes ago (increased from 1 minute to give more time)
+    const fiveMinutesAgo = new Date(Date.now() - 300000).toISOString();
     
     let query = supabase
       .from('games')
       .select('*')
       .eq('state', 0)
-      .gte('created_at', oneMinuteAgo) // Only show games created in last minute
+      .gte('created_at', fiveMinutesAgo) // Only show games created in last 5 minutes
       .order('created_at', { ascending: false });
 
     if (betTier) {

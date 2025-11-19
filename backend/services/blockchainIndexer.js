@@ -240,30 +240,48 @@ class BlockchainIndexer {
     const { gameId, creator, betAmount, timestamp } = event.args;
     const txHash = event.transactionHash;
     const betTier = this.getBetTierFromAmount(betAmount);
+    const gameIdInt = parseInt(gameId.toString());
 
-    console.log(`🎮 Multiplayer game created: ${gameId} by ${creator}`);
+    console.log(`🎮 Multiplayer game created: ${gameIdInt} by ${creator}`);
 
-    // Insert game
-    await supabaseAdmin
+    // Check if game already exists (frontend might have created it)
+    const { data: existingGame } = await supabaseAdmin
       .from('games')
-      .insert({
-        game_id: parseInt(gameId.toString()),
-        bet_amount: betAmount.toString(),
-        bet_tier: betTier,
-        player1_address: creator,
-        state: 0,
-        creation_tx_hash: txHash
-      });
+      .select('*')
+      .eq('game_id', gameIdInt)
+      .single();
+
+    if (existingGame) {
+      console.log(`ℹ️  Game ${gameIdInt} already exists in DB (created by frontend), skipping insert`);
+    } else {
+      // Insert game
+      const { error } = await supabaseAdmin
+        .from('games')
+        .insert({
+          game_id: gameIdInt,
+          bet_amount: betAmount.toString(),
+          bet_tier: betTier,
+          player1_address: creator,
+          state: 0,
+          creation_tx_hash: txHash
+        });
+
+      if (error) {
+        console.error(`❌ Error inserting game ${gameIdInt}:`, error.message);
+      } else {
+        console.log(`✅ Game ${gameIdInt} inserted into DB`);
+      }
+    }
 
     // Update or create player
     await this.upsertPlayer(creator, betAmount, 'wagered');
 
-    // Log event
+    // Log event (with ON CONFLICT DO NOTHING to avoid duplicates)
     await supabaseAdmin
       .from('event_log')
       .insert({
         event_type: 'GameCreated',
-        game_id: parseInt(gameId.toString()),
+        game_id: gameIdInt,
         player_address: creator,
         data: { gameId: gameId.toString(), creator, betAmount: betAmount.toString(), timestamp: timestamp.toString() },
         transaction_hash: txHash,
@@ -274,11 +292,12 @@ class BlockchainIndexer {
   async handleMultiplayerGameJoined(event) {
     const { gameId, player, betAmount, timestamp } = event.args;
     const txHash = event.transactionHash;
+    const gameIdInt = parseInt(gameId.toString());
 
-    console.log(`👥 Game joined: ${gameId} by ${player}`);
+    console.log(`👥 Game joined: ${gameIdInt} by ${player}`);
 
-    // Update game
-    await supabaseAdmin
+    // Update game (frontend might have already done this, but ensure it's updated)
+    const { error, data } = await supabaseAdmin
       .from('games')
       .update({
         player2_address: player,
@@ -286,7 +305,16 @@ class BlockchainIndexer {
         joined_at: new Date().toISOString(),
         join_tx_hash: txHash
       })
-      .eq('game_id', parseInt(gameId.toString()));
+      .eq('game_id', gameIdInt)
+      .select();
+
+    if (error) {
+      console.error(`❌ Error updating game ${gameIdInt}:`, error.message);
+    } else if (data && data.length > 0) {
+      console.log(`✅ Game ${gameIdInt} updated (player2 joined)`);
+    } else {
+      console.warn(`⚠️  Game ${gameIdInt} not found for update`);
+    }
 
     // Update player stats
     await this.upsertPlayer(player, betAmount, 'wagered');

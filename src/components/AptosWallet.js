@@ -73,10 +73,10 @@ const AptosWallet = ({ aptos }) => {
       {showWalletPopup && (
         <div className="wallet-popup">
           <div className="wallet-popup-content">
-            <p className="wallet-popup-text">
-              <strong>Use Petra Wallet</strong><br />
-              For the best experience, please use Petra wallet to connect.
-            </p>
+                        <div className="wallet-notice">
+              <strong>Use Push Chain Wallet</strong><br />
+              For the best experience, please use Push Chain wallet to connect.
+            </div>
           </div>
         </div>
       )}

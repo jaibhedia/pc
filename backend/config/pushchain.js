@@ -33,14 +33,14 @@ export async function initializePushChainClient(privateKey) {
       network: PUSH_NETWORK,
     });
     
-    console.log('✅ Push Chain SDK initialized');
-    console.log(`📍 Network: ${PUSH_NETWORK}`);
-    console.log(`📍 RPC URL: ${PUSH_RPC_URL}`);
-    console.log(`📍 Wallet: ${wallet.address}`);
+    console.log('Push Chain SDK initialized');
+    console.log(` Network: ${PUSH_NETWORK}`);
+    console.log(`RPC URL: ${PUSH_RPC_URL}`);
+    console.log(`Wallet: ${wallet.address}`);
     
     return pushChainClient;
   } catch (error) {
-    console.error('❌ Failed to initialize Push Chain client:', error);
+    console.error('Failed to initialize Push Chain client:', error);
     throw error;
   }
 }

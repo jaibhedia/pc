@@ -64,12 +64,11 @@ class MultiplayerGameService {
 
   async createGame(betTier, pushChainService, walletAddress) {
     try {
-      // Use Push Chain service which handles wallet via UI Kit
+      // Validate inputs
       if (!pushChainService || !pushChainService.isInitialized) {
         throw new Error('Push Chain service not initialized. Please connect your wallet.');
       }
 
-      // Validate wallet address
       if (!walletAddress) {
         throw new Error('Wallet address is required to create a game');
       }
@@ -78,16 +77,20 @@ class MultiplayerGameService {
       const tierInfo = this.BET_TIERS.find(t => t.id === betTier);
       if (!tierInfo) throw new Error('Invalid bet tier');
 
-      // Create game via Push Chain contract, passing wallet address explicitly
+      console.log('🎮 Creating game on blockchain...', { betTier: tierInfo.id, amount: tierInfo.wei });
+
+      // Create game on blockchain
       const result = await pushChainService.createMultiplayerGame(tierInfo.id, walletAddress);
       
       if (!result.success) {
-        throw new Error(result.error || 'Failed to create game');
+        throw new Error(result.error || 'Failed to create game on blockchain');
       }
       
       const { transactionHash, gameId } = result;
+      console.log('✅ Blockchain transaction successful:', { gameId, txHash: transactionHash });
       
-      // Save game to Supabase for global multiplayer
+      // Save to Supabase immediately (don't wait for indexer)
+      console.log('💾 Saving game to Supabase...');
       const saveResult = await supabaseService.createGame({
         game_id: gameId,
         bet_amount: tierInfo.wei,
@@ -96,56 +99,64 @@ class MultiplayerGameService {
         creation_tx_hash: transactionHash
       });
       
-      if (!saveResult.success) {
-        console.error('Failed to save game to Supabase:', saveResult.error);
-        // Still return success since blockchain transaction worked
+      if (saveResult.success) {
+        console.log('✅ Game saved to Supabase:', saveResult.data);
+      } else {
+        console.warn('⚠️ Failed to save to Supabase (indexer will handle):', saveResult.error);
       }
       
-      return { success: true, transactionHash, gameId };
+      return { 
+        success: true, 
+        transactionHash, 
+        gameId,
+        tier: tierInfo 
+      };
     } catch (error) {
-      console.error('Failed to create game:', error);
+      console.error('❌ Failed to create game:', error);
       return { success: false, error: error.message };
     }
   }
 
   async joinGame(gameId, pushChainService, walletAddress) {
     try {
-      // Use Push Chain service which handles wallet via UI Kit
+      // Validate inputs
       if (!pushChainService || !pushChainService.isInitialized) {
         throw new Error('Push Chain service not initialized. Please connect your wallet.');
       }
 
-      // Validate wallet address
       if (!walletAddress) {
         throw new Error('Wallet address is required to join a game');
       }
 
-      // Join game via Push Chain contract
+      console.log('🎮 Joining game on blockchain...', { gameId, player: walletAddress });
+
+      // Join game on blockchain
       const result = await pushChainService.joinMultiplayerGame(gameId);
       
       if (!result.success) {
-        throw new Error(result.error || 'Failed to join game');
+        throw new Error(result.error || 'Failed to join game on blockchain');
       }
       
       const { transactionHash } = result;
+      console.log('✅ Blockchain transaction successful:', { gameId, txHash: transactionHash });
       
-      // Update game in Supabase with explicit wallet address
+      // Update Supabase immediately
+      console.log('💾 Updating game in Supabase...');
       const updateResult = await supabaseService.updateGameJoin(
         gameId, 
         walletAddress, 
         transactionHash
       );
       
-      if (!updateResult.success) {
-        console.error('Failed to update game in Supabase:', updateResult.error);
-        // Still return success since blockchain transaction worked
+      if (updateResult.success) {
+        console.log('✅ Game updated in Supabase:', updateResult.data);
       } else {
-        console.log('✅ Game updated (player joined):', updateResult.data);
+        console.warn('⚠️ Failed to update Supabase (indexer will handle):', updateResult.error);
       }
       
-      return { success: true, transactionHash };
+      return { success: true, transactionHash, gameId };
     } catch (error) {
-      console.error('Failed to join game:', error);
+      console.error('❌ Failed to join game:', error);
       return { success: false, error: error.message };
     }
   }
