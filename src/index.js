@@ -3,11 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
-// Suppress known harmless console warnings in development
-if (process.env.NODE_ENV === 'development') {
-  const originalError = console.error;
-  const originalWarn = console.warn;
-  const originalLog = console.log;
+// Suppress known harmless console warnings in ALL environments (development + production)
+const originalError = console.error;
+const originalWarn = console.warn;
+const originalLog = console.log;
   
   console.error = (...args) => {
     // Check both string messages and Error objects
@@ -91,7 +90,6 @@ if (process.env.NODE_ENV === 'development') {
     }
     originalLog.apply(console, args);
   };
-}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
