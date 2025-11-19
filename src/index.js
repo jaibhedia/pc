@@ -64,17 +64,9 @@ const originalLog = console.log;
       message.includes('marked for penalty') ||
       message.includes('Cleaned up penalized fruit') ||
       message.includes('BOMB MISSED!') ||
-      message.includes('loseLiveFromMissedToken() CALLED') || // Debug trace
+      message.includes('loseLiveFromMissedToken() CALLED') ||
       message.includes('Current lives before loss') ||
       message.includes('New lives after loss') ||
-      // Token loading (too verbose)
-      message.includes('Loading Starknet token image') ||
-      message.includes('Loaded Yellow Ring') ||
-      message.includes('Loaded Red Ring') ||
-      message.includes('Loaded Green Ring') ||
-      message.includes('Loaded Blue Ring') ||
-      message.includes('token image loaded successfully') ||
-      message.includes('Cleaning up token image loaders') ||
       // Repeated wallet/connection logs
       message.includes('App - Wallet State:') ||
       message.includes('Video can play') ||

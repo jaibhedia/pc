@@ -78,7 +78,7 @@
 
 .mode-back-btn:hover {
   background: rgba(255, 255, 255, 0.2);
-  border-color: #FFD700;
+  border-color: #DD44B9;
   transform: translateX(-5px);
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
 }
@@ -127,7 +127,7 @@
   font-family: 'Impact', sans-serif;
   font-size: 72px;
   font-weight: 900;
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF6B6B 100%);
+  background: linear-gradient(135deg, #DD44B9 0%, #F75FE3 50%, #FF6B6B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -149,7 +149,7 @@
   left: -10%;
   width: 120%;
   height: 6px;
-  background: linear-gradient(90deg, transparent, #FFD700, transparent);
+  background: linear-gradient(90deg, transparent, #DD44B9, transparent);
   transform: translateY(-50%) skewX(-20deg);
   animation: slashSlide 1.5s ease-in-out infinite;
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
@@ -353,7 +353,7 @@
 }
 
 .game-mode-card:hover .mode-title {
-  color: #FFD700;
+  color: #DD44B9;
   text-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
   transform: scale(1.1);
 }
@@ -407,7 +407,7 @@
 .best-score {
   font-family: 'Impact', sans-serif;
   font-size: 24px;
-  color: #FFD700;
+  color: #DD44B9;
   font-weight: 700;
 }
 
@@ -522,7 +522,7 @@
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
-    scrollbar-color: #FFD700 rgba(255, 255, 255, 0.1);
+    scrollbar-color: #DD44B9 rgba(255, 255, 255, 0.1);
   }
 
   .mode-selection-screen::-webkit-scrollbar {
@@ -536,7 +536,7 @@
   }
 
   .mode-selection-screen::-webkit-scrollbar-thumb {
-    background: #FFD700;
+    background: #DD44B9;
     border-radius: 10px;
     border: 2px solid rgba(0, 0, 0, 0.3);
   }
@@ -685,7 +685,7 @@
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
-    scrollbar-color: #FFD700 rgba(255, 255, 255, 0.1);
+    scrollbar-color: #DD44B9 rgba(255, 255, 255, 0.1);
   }
 
   .mode-selection-screen::-webkit-scrollbar {
@@ -699,7 +699,7 @@
   }
 
   .mode-selection-screen::-webkit-scrollbar-thumb {
-    background: #FFD700;
+    background: #DD44B9;
     border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, 0.3);
   }

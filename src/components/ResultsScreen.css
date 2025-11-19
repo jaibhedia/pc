@@ -83,7 +83,7 @@
   font-family: 'Impact', sans-serif;
   font-size: 48px;
   font-weight: 900;
-  background: linear-gradient(135deg, #FF6B6B 0%, #FFD700 50%, #FFA500 100%);
+  background: linear-gradient(135deg, #FF6B6B 0%, #DD44B9 50%, #F75FE3 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -102,7 +102,7 @@
   display: inline-block;
   margin-top: 8px;
   padding: 6px 20px;
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  background: linear-gradient(135deg, #DD44B9 0%, #F75FE3 100%);
   border-radius: 50px;
   font-family: 'Impact', sans-serif;
   font-size: 14px;
@@ -143,7 +143,7 @@
   padding: 20px 30px;
   background: rgba(20, 20, 30, 0.9);
   border-radius: 20px;
-  border: 3px solid #FFD700;
+  border: 3px solid #DD44B9;
   box-shadow: 
     0 0 50px rgba(255, 215, 0, 0.4),
     inset 0 0 30px rgba(255, 215, 0, 0.1);
@@ -178,7 +178,7 @@
   font-family: 'Impact', sans-serif;
   font-size: 64px;
   font-weight: 900;
-  color: #FFD700;
+  color: #DD44B9;
   text-shadow: 
     0 0 25px rgba(255, 215, 0, 0.8),
     0 0 50px rgba(255, 215, 0, 0.5),
@@ -560,7 +560,7 @@
 }
 
 .progress-count {
-  color: #FFD700;
+  color: #DD44B9;
   font-family: 'Impact', sans-serif;
   font-size: 15px;
   letter-spacing: 0.5px;
@@ -613,7 +613,7 @@
 }
 
 .progress-message strong {
-  color: #FFD700;
+  color: #DD44B9;
   font-family: 'Impact', sans-serif;
   letter-spacing: 0.5px;
 }
@@ -634,7 +634,7 @@
 }
 
 .milestone-hint strong {
-  color: #FFD700;
+  color: #DD44B9;
   font-weight: 700;
 }
 
@@ -669,7 +669,7 @@
 .games-needed {
   font-family: 'Impact', sans-serif;
   font-size: 16px;
-  color: #FFD700;
+  color: #DD44B9;
   font-weight: 700;
   letter-spacing: 1.5px;
   margin-top: 10px;
@@ -754,11 +754,11 @@
 .back-multiplayer:hover,
 .back-home.unified-button-secondary:hover {
   background: rgba(255, 255, 255, 0.15);
-  border-color: #FFD700;
+  border-color: #DD44B9;
 }
 
 .back-home:not(.unified-button-secondary) {
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  background: linear-gradient(135deg, #DD44B9 0%, #F75FE3 100%);
   color: #000;
   box-shadow: 0 8px 32px rgba(255, 215, 0, 0.4);
 }
@@ -796,7 +796,7 @@
   }
 
   .results-screen::-webkit-scrollbar-thumb:hover {
-    background: #FFD700;
+    background: #DD44B9;
   }
 
   .results-container {
@@ -890,7 +890,7 @@
   }
 
   .results-screen::-webkit-scrollbar-thumb:hover {
-    background: #FFD700;
+    background: #DD44B9;
   }
 
   .game-over-title .unified-title {

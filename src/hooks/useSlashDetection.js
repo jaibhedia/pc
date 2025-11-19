@@ -211,11 +211,12 @@ export const useSlashDetection = (
             }
           };
           
-          onUpdateScore(item.type.points, handleComboPopup);
+          const itemPoints = item.type?.points || 10;
+          onUpdateScore(itemPoints, handleComboPopup);
           onCreateParticles(item.x, item.y, '#00ff88', 15);
           
           if (addPopup) {
-            addPopup(popupX, popupY, item.type.points, 'token');
+            addPopup(popupX, popupY, itemPoints, 'token');
           }
           
           const angle = Math.atan2(velocity.vy, velocity.vx);
@@ -257,7 +258,7 @@ export const useSlashDetection = (
         }
       }
     });
-  }, [items, isSlashing, onUpdateScore, onLoseLife, onCreateParticles, onCreateScreenFlash, addPopup, canvasRef, createSliceEffect, createExplosionEffect, onSlashRecorded, gameState.combo]);
+  }, [items, isSlashing, onUpdateScore, onLoseLife, onCreateParticles, onCreateScreenFlash, addPopup, canvasRef, createSliceEffect, createExplosionEffect, onSlashRecorded, gameState.combo, showComboMessage]);
 
   const startSlash = useCallback((e) => {
     if (gameState.screen !== 'game' || !gameState.isGameRunning || gameState.isPaused) return;

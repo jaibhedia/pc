@@ -3,7 +3,7 @@ import './LandingPage.css';
 import { GiCrossedSwords } from 'react-icons/gi';
 import PushChainWallet from './PushChainWallet';
 
-const LandingPage = ({ onStartGame, onMultiplayer, aptos }) => {
+const LandingPage = ({ onStartGame, onMultiplayer }) => {
   const handlePlayClick = (e) => {
     e.preventDefault();
     onStartGame();
@@ -12,15 +12,6 @@ const LandingPage = ({ onStartGame, onMultiplayer, aptos }) => {
   const handleMultiplayerClick = (e) => {
     e.preventDefault();
     onMultiplayer();
-  };
-
-  const handleVideoError = (e) => {
-    console.error('Video failed to load:', e);
-    console.error('Video error details:', e.target.error);
-  };
-
-  const handleVideoLoad = () => {
-    console.log('Video loaded successfully');
   };
 
   return (
@@ -51,9 +42,6 @@ const LandingPage = ({ onStartGame, onMultiplayer, aptos }) => {
         playsInline
         preload="auto"
         disablePictureInPicture
-        onError={handleVideoError}
-        onLoadedData={handleVideoLoad}
-        onCanPlay={() => console.log('Video can play')}
       >
         <source src="/background-video.mp4" type="video/mp4" />
         <source src={`${process.env.PUBLIC_URL}/background-video.mp4`} type="video/mp4" />

@@ -18,8 +18,7 @@ const GameScreen = ({
   onCreateScreenFlash,
   onDecrementTimer,
   updateParticles,
-  onBackToHome,
-  aptos
+  onBackToHome
 }) => {
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
@@ -58,13 +57,6 @@ const GameScreen = ({
     renderBladeTrail
   } = useBladeTrail();
 
-  // Callback to record slashes on blockchain
-  const handleSlashRecorded = useCallback((slashData) => {
-    if (aptos && aptos.isConnected) {
-      aptos.recordSlash(slashData);
-    }
-  }, [aptos]);
-
   const {
     startSlash,
     updateSlash,
@@ -80,7 +72,6 @@ const GameScreen = ({
     addTrailPoint,
     isSlashing,
     addPopup,
-    handleSlashRecorded,
     showComboMessage
   );
 
@@ -213,14 +204,32 @@ const GameScreen = ({
     return () => clearInterval(timerInterval);
   }, [gameState.isGameRunning, gameState.isPaused, gameState.timeRemaining, onDecrementTimer]);
 
+  // Main render loop with animation frame
   useEffect(() => {
     const ctx = ctxRef.current;
-    if (ctx) {
+    if (!ctx) return;
+
+    let animationFrameId;
+    
+    const renderFrame = () => {
       render(ctx, items, slashTrail, particles);
       // Render blade trail on top
       renderBladeTrail(ctx);
-    }
-  }, [items, slashTrail, particles, render, renderBladeTrail]);
+      
+      // Update trail opacity
+      updateTrail();
+      
+      animationFrameId = requestAnimationFrame(renderFrame);
+    };
+    
+    animationFrameId = requestAnimationFrame(renderFrame);
+    
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [items, slashTrail, particles, render, renderBladeTrail, updateTrail]);
 
   const handleMouseDown = useCallback((e) => {
     startSlashing();

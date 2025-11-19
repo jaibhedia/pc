@@ -125,7 +125,7 @@
 
 .lobby-back-btn:hover {
   background: rgba(255, 255, 255, 0.2);
-  border-color: #FFD700;
+  border-color: #DD44B9;
   transform: translateX(-5px);
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
 }
@@ -146,7 +146,7 @@
   border-radius: 50px;
   font-family: monospace;
   font-size: 14px;
-  color: #FFD700;
+  color: #DD44B9;
   font-weight: 700;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 16px rgba(255, 215, 0, 0.2);
@@ -184,7 +184,7 @@
   font-family: 'Impact', sans-serif;
   font-size: 56px;
   font-weight: 900;
-  background: linear-gradient(135deg, #FF6B6B 0%, #FFD700 50%, #2ED8A7 100%);
+  background: linear-gradient(135deg, #FF6B6B 0%, #DD44B9 50%, #2ED8A7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -205,7 +205,7 @@
   left: -10%;
   width: 120%;
   height: 5px;
-  background: linear-gradient(90deg, transparent, #FFD700, transparent);
+  background: linear-gradient(90deg, transparent, #DD44B9, transparent);
   transform: translateY(-50%) skewX(-20deg);
   animation: slashSwipe 1.5s ease-in-out infinite;
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
@@ -267,8 +267,8 @@
 }
 
 .lobby-tab.active {
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-  border-color: #FFD700;
+  background: linear-gradient(135deg, #DD44B9 0%, #F75FE3 100%);
+  border-color: #DD44B9;
   color: #000;
   box-shadow: 0 8px 32px rgba(255, 215, 0, 0.5);
   transform: translateY(-3px);
@@ -282,7 +282,7 @@
 .section-title {
   font-family: 'Impact', sans-serif;
   font-size: 32px;
-  color: #FFD700;
+  color: #DD44B9;
   text-align: center;
   margin-bottom: 12px;
   letter-spacing: 3px;
@@ -445,7 +445,7 @@
   justify-content: center;
   gap: 12px;
   padding: 18px 36px;
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  background: linear-gradient(135deg, #DD44B9 0%, #F75FE3 100%);
   border: none;
   border-radius: 50px;
   font-family: 'Impact', sans-serif;
@@ -720,7 +720,7 @@
 }
 
 .info-value.gold {
-  color: #FFD700;
+  color: #DD44B9;
   font-size: 18px;
 }
 
@@ -828,7 +828,7 @@
 .stat-glow {
   position: absolute;
   inset: -3px;
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  background: linear-gradient(135deg, #DD44B9 0%, #F75FE3 100%);
   border-radius: 20px;
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -854,7 +854,7 @@
 .stat-value {
   font-family: 'Impact', sans-serif;
   font-size: 40px;
-  color: #FFD700;
+  color: #DD44B9;
   font-weight: 900;
   margin-bottom: 8px;
   letter-spacing: 2px;
@@ -877,7 +877,7 @@
   width: 50px;
   height: 50px;
   border: 4px solid rgba(255, 215, 0, 0.2);
-  border-top-color: #FFD700;
+  border-top-color: #DD44B9;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   margin: 0 auto 20px;

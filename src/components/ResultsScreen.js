@@ -47,6 +47,7 @@ const ResultsScreen = ({
         score: gameState.score
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run once on mount
 
   // Submit multiplayer score and fetch result when game ends

@@ -9,11 +9,10 @@ import './PushChainWallet.css';
 
 /**
  * PushChainWallet Component
- * Replaces AptosWallet with Push Chain Universal Wallet
  * Uses Push Chain UI Kit for wallet connection across all chains
  */
 const PushChainWallet = () => {
-  const { isConnected, account, pushChainClient } = usePushWalletContext();
+  const { isConnected, account } = usePushWalletContext();
 
   const formatAddress = (address) => {
     if (!address) return '';
@@ -24,7 +23,7 @@ const PushChainWallet = () => {
   const mockNFTs = [];
 
   return (
-    <div className="starknet-wallet">
+    <div className="pushchain-wallet">
       {!isConnected ? (
         <PushUniversalAccountButton />
       ) : (

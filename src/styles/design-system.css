@@ -367,11 +367,11 @@ p {
 
 /* Start Screen */
 .start-screen {
-  background: linear-gradient(135deg, #FFE0B2 0%, #FFCC80 50%, #FFB74D 100%);
+  background: linear-gradient(135deg, #F3C8E6 0%, #E89CD9 50%, #DD44B9 100%);
   background-image: 
     radial-gradient(circle at 20% 80%, rgba(31, 216, 204, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 152, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(255, 193, 7, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 80% 20%, rgba(221, 68, 185, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(247, 95, 227, 0.05) 0%, transparent 50%);
 }
 
 .start-container {
@@ -384,7 +384,7 @@ p {
 
 .game-title h1 {
   font-size: var(--font-size-4xl);
-  color: #FF6B35;
+  color: #F75FE3;
   margin-bottom: var(--space-8);
   text-shadow: 0 0 20px rgba(31, 216, 204, 0.5);
   letter-spacing: var(--letter-spacing-tight);
@@ -464,7 +464,7 @@ p {
 }
 
 .highlight {
-  color: #FF6B35;
+  color: #F75FE3;
   font-weight: var(--font-weight-semibold);
 }
 
@@ -628,7 +628,7 @@ p {
 .highest-score-value {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
-  color: #ffd700;
+  color: #DD44B9;
   text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
 }
 
@@ -841,7 +841,7 @@ p {
 }
 
 .new-best-badge {
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  background: linear-gradient(135deg, #DD44B9, #F75FE3);
   color: #1a1a1a;
   padding: 8px 20px;
   border-radius: 25px;
@@ -1189,8 +1189,8 @@ p {
   align-items: flex-start;
   gap: 8px;
   padding: 10px 12px;
-  background: rgba(255, 193, 7, 0.1);
-  border: 1px solid rgba(255, 193, 7, 0.3);
+  background: rgba(247, 95, 227, 0.1);
+  border: 1px solid rgba(247, 95, 227, 0.3);
   border-radius: 8px;
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.8);
@@ -1201,7 +1201,7 @@ p {
 .note-icon {
   font-size: 1rem;
   flex-shrink: 0;
-  filter: drop-shadow(0 0 6px rgba(255, 193, 7, 0.5));
+  filter: drop-shadow(0 0 6px rgba(247, 95, 227, 0.5));
   margin-top: 2px;
 }
 
@@ -1439,7 +1439,7 @@ p {
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, #FFD700, #FF6B35, #FFD700);
+  background: linear-gradient(45deg, #DD44B9, #F75FE3, #DD44B9);
   border-radius: 25px;
   z-index: -1;
   animation: borderGlow 2s linear infinite;
@@ -1458,8 +1458,8 @@ p {
   margin-bottom: 20px;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #FFD700;
-  text-shadow: 0 0 10px #FFD700;
+  color: #DD44B9;
+  text-shadow: 0 0 10px #DD44B9;
 }
 
 .score-icon {
@@ -1476,14 +1476,14 @@ p {
 .score-number {
   font-size: 4rem;
   font-weight: 700;
-  color: #FFA500;
+  color: #F75FE3;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   margin: 15px 0;
 }
 
 @keyframes scoreGlow {
-  from { text-shadow: 0 0 20px #00FFFF, 0 0 40px #00FFFF, 2px 2px 0px #FF6B35; }
-  to { text-shadow: 0 0 30px #00FFFF, 0 0 60px #00FFFF, 2px 2px 0px #FF6B35; }
+  from { text-shadow: 0 0 20px #00FFFF, 0 0 40px #00FFFF, 2px 2px 0px #F75FE3; }
+  to { text-shadow: 0 0 30px #00FFFF, 0 0 60px #00FFFF, 2px 2px 0px #F75FE3; }
 }
 
 /* New Record Badge */
@@ -1492,7 +1492,7 @@ p {
 }
 
 .record-badge {
-  background: linear-gradient(45deg, #FFD700, #FFA500);
+  background: linear-gradient(45deg, #DD44B9, #F75FE3);
   padding: 15px 30px;
   border-radius: 50px;
   display: inline-flex;
@@ -1558,7 +1558,7 @@ p {
 }
 
 .stat-label {
-  color: #FFD700;
+  color: #DD44B9;
   font-weight: 600;
   font-size: 0.9rem;
   text-transform: uppercase;
@@ -1609,14 +1609,14 @@ p {
 }
 
 .primary-btn:hover {
-  background: #FF6B35;
+  background: #F75FE3;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(210, 105, 30, 0.4);
 }
 
 .secondary-btn {
   background: #8B4513;
-  color: #FFA500;
+  color: #F75FE3;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
 }
 
@@ -1787,11 +1787,11 @@ p {
 /* Slash Trail Effect */
 .slash-line {
   position: absolute;
-  background: linear-gradient(90deg, transparent, #FF6B35, transparent);
+  background: linear-gradient(90deg, transparent, #F75FE3, transparent);
   height: 3px;
   pointer-events: none;
   border-radius: var(--radius-full);
-  box-shadow: 0 0 10px #FF6B35;
+  box-shadow: 0 0 10px #F75FE3;
   animation: slashFade 0.3s ease-out forwards;
 }
 

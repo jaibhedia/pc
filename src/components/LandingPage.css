@@ -449,8 +449,8 @@
   font-size: 1.3rem;
   font-weight: 700;
   padding: 1.2rem 4rem;
-  background: linear-gradient(135deg, #ff6b35, #f7931e);
-  border: 2px solid rgba(255, 107, 53, 0.5);
+  background: linear-gradient(135deg, #DD44B9, #F75FE3);
+  border: 2px solid rgba(221, 68, 185, 0.5);
   border-radius: 50px;
   color: #ffffff;
   cursor: pointer;
@@ -460,7 +460,7 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   transition: all 0.3s ease;
-  box-shadow: 0 0 25px rgba(255, 107, 53, 0.4),
+  box-shadow: 0 0 25px rgba(221, 68, 185, 0.4),
               0 8px 25px rgba(0, 0, 0, 0.3);
   position: absolute;
   bottom: 0.5rem;
@@ -486,9 +486,9 @@
 
 .hero-multiplayer-button:hover {
   transform: translateX(-50%) translateY(-3px) scale(1.05);
-  box-shadow: 0 0 35px rgba(255, 107, 53, 0.6),
+  box-shadow: 0 0 35px rgba(221, 68, 185, 0.6),
               0 12px 35px rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 107, 53, 0.8);
+  border-color: rgba(221, 68, 185, 0.8);
 }
 
 .multiplayer-icon {

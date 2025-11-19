@@ -112,7 +112,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 20px;
-  background: linear-gradient(135deg, #FFD700, #FFA500);
+  background: linear-gradient(135deg, #DD44B9, #F75FE3);
   border-radius: 12px;
   font-weight: 900;
   font-size: 14px;
@@ -152,7 +152,7 @@
 }
 
 .score-needed {
-  color: #FFD700;
+  color: #DD44B9;
   font-weight: 700;
 }
 
@@ -223,7 +223,7 @@
 .nft-badge {
   margin-left: auto;
   padding: 4px 10px;
-  background: linear-gradient(135deg, #FFD700, #FFA500);
+  background: linear-gradient(135deg, #DD44B9, #F75FE3);
   border-radius: 8px;
   font-size: 12px;
   font-weight: 700;
@@ -258,7 +258,7 @@
 
 .max-tier-message h3 {
   margin: 10px 0;
-  color: #FFD700;
+  color: #DD44B9;
   font-size: 24px;
   font-family: 'Impact', 'Arial Black', sans-serif;
 }
@@ -285,7 +285,7 @@
 
 .details-toggle:hover {
   background: rgba(255, 255, 255, 0.15);
-  border-color: #FFD700;
+  border-color: #DD44B9;
 }
 
 /* Expanded Details */
@@ -300,7 +300,7 @@
   font-size: 20px;
   font-weight: 900;
   margin-bottom: 15px;
-  color: #FFD700;
+  color: #DD44B9;
   font-family: 'Impact', 'Arial Black', sans-serif;
 }
 
@@ -330,7 +330,7 @@
 }
 
 .nft-card.unlocked {
-  border-color: #FFD700;
+  border-color: #DD44B9;
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1));
 }
 
@@ -379,7 +379,7 @@
 
 .achievement-card:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: #FFD700;
+  border-color: #DD44B9;
   transform: translateX(5px);
 }
 
@@ -395,7 +395,7 @@
 .achievement-name {
   font-size: 15px;
   font-weight: 900;
-  color: #FFD700;
+  color: #DD44B9;
   margin-bottom: 3px;
 }
 

@@ -16,7 +16,7 @@
 .missed-token-notification {
   background: rgba(255, 170, 0, 0.95);
   backdrop-filter: blur(10px);
-  border: 2px solid #ffaa00;
+  border: 2px solid #F75FE3;
   border-radius: 12px;
   padding: 10px 16px;
   display: flex;

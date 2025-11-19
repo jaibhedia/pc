@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import multiplayerService from '../services/multiplayerService';
 import { usePushChain } from '../hooks/usePushChain';
@@ -6,7 +6,7 @@ import { track } from '@vercel/analytics';
 import * as supabaseService from '../services/supabaseService';
 import './MultiplayerLobby.css';
 import { GiCrossedSwords, GiTwoCoins, GiTrophyCup, GiLightningBow, GiDiamondHard, GiGamepad, GiCrossedSabres, GiTargetArrows } from 'react-icons/gi';
-import { FaCrown, FaChartLine } from 'react-icons/fa';
+import { FaChartLine } from 'react-icons/fa';
 import { IoMdRefresh } from 'react-icons/io';
 
 // Use environment variable or fallback to localhost
@@ -45,6 +45,7 @@ const MultiplayerLobby = ({ walletAddress, onStartGame, onBack }) => {
   // Force initial fetch on component mount
   useEffect(() => {
     fetchAvailableGames();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // WebSocket connection for real-time updates

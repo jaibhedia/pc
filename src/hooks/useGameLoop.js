@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useVisibility } from './useVisibility';
 
-// Starknet tokens with different colored rings - each has different speed and difficulty
+// Push Chain tokens with different colored rings - each has different speed and difficulty
 const TOKEN_TYPES = [
   { name: "Yellow Ring", image: "/logo.svg", color: "#FFD700", ringColor: "#FFD700", points: 10, speedMod: 1.0, difficulty: "Easy" },
   { name: "Green Ring", image: "/logo.svg", color: "#00FF88", ringColor: "#00FF88", points: 15, speedMod: 1.3, difficulty: "Medium" },
@@ -55,8 +55,6 @@ export const useGameLoop = (canvasRef, gameState, onEndGame, updateParticles, on
     let loadedCount = 0;
     const totalTokens = TOKEN_TYPES.length;
     
-    console.log(`🔄 Loading Starknet token image...`);
-    
     TOKEN_TYPES.forEach((token) => {
       const img = new Image();
       
@@ -66,33 +64,23 @@ export const useGameLoop = (canvasRef, gameState, onEndGame, updateParticles, on
       img.onload = () => {
         loadedImages[token.name] = img;
         loadedCount++;
-        console.log(`✅ Loaded ${token.name} (${loadedCount}/${totalTokens})`);
         
         if (loadedCount === totalTokens) {
           setTokenImages(loadedImages);
-          console.log('✨ Starknet token image loaded successfully!');
         }
       };
       
-      img.onerror = (error) => {
-        console.error(`❌ Failed to load ${token.name} from ${token.image}`, error);
-        // Still increment count to prevent hanging
+      img.onerror = () => {
         loadedCount++;
         
         if (loadedCount === totalTokens) {
           setTokenImages(loadedImages);
-          console.log(`⚠️ Token loading complete with ${totalTokens - Object.keys(loadedImages).length} errors`);
         }
       };
       
       // Set source last to trigger loading
       img.src = token.image;
     });
-    
-    // Cleanup function
-    return () => {
-      console.log('🧹 Cleaning up token image loaders');
-    };
   }, []);
 
   // Clean up items when tab becomes visible again to prevent accumulation
@@ -350,10 +338,8 @@ export const useGameLoop = (canvasRef, gameState, onEndGame, updateParticles, on
                               !penalizedFruits.current.has(item.id);
                               
         if (shouldPenalize && onFruitMissed) {
-          console.log(`🍊 FRUIT MISSED! ID: ${item.id}, Y: ${newY}`);
           updatedPenaltyApplied = true;
           penalizedFruits.current.add(item.id);
-          console.log(`✅ Fruit ID ${item.id} marked for penalty. Total penalized: ${penalizedFruits.current.size}`);
           
           requestAnimationFrame(() => {
             if (penalizedFruits.current.has(item.id)) {
@@ -364,7 +350,6 @@ export const useGameLoop = (canvasRef, gameState, onEndGame, updateParticles, on
         
         // Log bomb missed (no penalty)
         if (newY > canvas.height + 50 && !item.type.isGood && !item.slashed) {
-          console.log('💣 BOMB MISSED! No penalty - bomb fell off screen.');
         }
 
         return {
@@ -386,7 +371,6 @@ export const useGameLoop = (canvasRef, gameState, onEndGame, updateParticles, on
         // Clean up penalized fruits set when items are removed
         if (!shouldKeep && penalizedFruits.current.has(item.id)) {
           penalizedFruits.current.delete(item.id);
-          console.log(`🧹 Cleaned up penalized fruit ID: ${item.id}. Remaining: ${penalizedFruits.current.size}`);
         }
         
         return shouldKeep;
@@ -404,7 +388,7 @@ export const useGameLoop = (canvasRef, gameState, onEndGame, updateParticles, on
     // Clear canvas completely transparent to show wooden background
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Draw items (aptos tokens and bombs)
+    // Draw items (tokens and bombs)
     itemsToRender.forEach(item => {
       if (item.slashed) return;
       
@@ -567,7 +551,7 @@ export const useGameLoop = (canvasRef, gameState, onEndGame, updateParticles, on
     });
     
     // Draw combo message on screen (Fruit Ninja style)
-    if (comboMessage && comboMessage.visible) {
+    if (comboMessage && comboMessage.visible && comboMessage.combo && comboMessage.points) {
       ctx.save();
       
       const centerX = canvas.width / 2;
@@ -599,23 +583,26 @@ export const useGameLoop = (canvasRef, gameState, onEndGame, updateParticles, on
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       
+      const comboText = `X${comboMessage.combo}`;
+      const pointsText = `+${comboMessage.points}`;
+      
       // Black outline (thick)
       ctx.strokeStyle = '#000';
       ctx.lineWidth = 12;
       ctx.lineJoin = 'round';
-      ctx.strokeText(`X${comboMessage.combo}`, 0, 0);
+      ctx.strokeText(comboText, 0, 0);
       
-      // Yellow fill with gradient
+      // Pink fill with gradient (Push Chain colors)
       const gradient = ctx.createLinearGradient(0, -50, 0, 50);
-      gradient.addColorStop(0, '#FFE55C');
-      gradient.addColorStop(1, '#FFD700');
+      gradient.addColorStop(0, '#F75FE3');
+      gradient.addColorStop(1, '#DD44B9');
       ctx.fillStyle = gradient;
-      ctx.fillText(`X${comboMessage.combo}`, 0, 0);
+      ctx.fillText(comboText, 0, 0);
       
       // Glow effect
-      ctx.shadowColor = '#FFD700';
+      ctx.shadowColor = '#DD44B9';
       ctx.shadowBlur = 30;
-      ctx.fillText(`X${comboMessage.combo}`, 0, 0);
+      ctx.fillText(comboText, 0, 0);
       
       // Draw bonus points below
       ctx.shadowBlur = 0;
@@ -624,13 +611,13 @@ export const useGameLoop = (canvasRef, gameState, onEndGame, updateParticles, on
       // Black outline for bonus
       ctx.strokeStyle = '#000';
       ctx.lineWidth = 8;
-      ctx.strokeText(`+${comboMessage.points}`, 0, 70);
+      ctx.strokeText(pointsText, 0, 70);
       
       // White fill for bonus
       ctx.fillStyle = '#FFF';
-      ctx.shadowColor = '#FFD700';
+      ctx.shadowColor = '#DD44B9';
       ctx.shadowBlur = 20;
-      ctx.fillText(`+${comboMessage.points}`, 0, 70);
+      ctx.fillText(pointsText, 0, 70);
       
       ctx.restore();
     }
@@ -641,7 +628,6 @@ export const useGameLoop = (canvasRef, gameState, onEndGame, updateParticles, on
     setSlashTrail([]);
     setParticles([]);
     penalizedFruits.current.clear(); // Clear penalty tracking when game resets
-    console.log('🧹 Cleared all items and penalty tracking');
   }, []);
 
   const cleanupExcessItems = useCallback(() => {
@@ -655,9 +641,14 @@ export const useGameLoop = (canvasRef, gameState, onEndGame, updateParticles, on
   }, []);
 
   const showComboMessage = useCallback((combo, points) => {
+    // Validate inputs - prevent undefined values
+    if (!combo || !points || combo < 2) {
+      return;
+    }
+    
     setComboMessage({
-      combo,
-      points,
+      combo: Number(combo),
+      points: Number(points),
       visible: true,
       startTime: Date.now(),
       duration: 1000 // Show for 1 second

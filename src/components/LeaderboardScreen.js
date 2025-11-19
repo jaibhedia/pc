@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import aptosService from '../services/aptosService';
 
 const LeaderboardScreen = ({ onShowStartScreen }) => {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -11,41 +10,15 @@ const LeaderboardScreen = ({ onShowStartScreen }) => {
 
   useEffect(() => {
     loadLeaderboard();
-    checkWalletConnection();
   }, []);
-
-  const checkWalletConnection = async () => {
-    if (aptosService.isWalletConnected()) {
-      const address = aptosService.getWalletAddress();
-      setWalletAddress(address);
-      loadGameStats(address);
-    }
-  };
-
-  const loadGameStats = async (address) => {
-    try {
-      const stats = await aptosService.getGameState();
-      setGameStats(stats);
-    } catch (err) {
-      console.error('Failed to load game stats:', err);
-    }
-  };
 
   const loadLeaderboard = async () => {
     setLoading(true);
     setError(null);
     
     try {
-      const leaderboardData = await aptosService.getLeaderboard();
-      setLeaderboard(leaderboardData);
-      
-      // Find player's rank if wallet is connected
-      if (walletAddress) {
-        const rank = leaderboardData.findIndex(entry => 
-          entry.player.toLowerCase() === walletAddress.toLowerCase()
-        );
-        setPlayerRank(rank >= 0 ? rank + 1 : null);
-      }
+      // Placeholder for future leaderboard API
+      setLeaderboard([]);
     } catch (err) {
       setError('Failed to load leaderboard');
       console.error('Leaderboard error:', err);

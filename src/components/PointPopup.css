@@ -75,14 +75,14 @@
 .combo-popup .combo-text {
   font-size: 72px;
   font-weight: 900;
-  color: #FFD700;
+  color: #DD44B9;
   text-shadow: 
     4px 4px 0px #000,
     -4px -4px 0px #000,
     4px -4px 0px #000,
     -4px 4px 0px #000,
-    0 0 30px #FFD700,
-    0 0 50px #FFA500;
+    0 0 30px #DD44B9,
+    0 0 50px #F75FE3;
   animation: comboScale 0.2s ease-out;
   text-transform: uppercase;
   font-family: 'Impact', 'Arial Black', 'Helvetica', sans-serif;
@@ -99,7 +99,7 @@
     -3px -3px 0px #000,
     3px -3px 0px #000,
     -3px 3px 0px #000,
-    0 0 20px #FFD700;
+    0 0 20px #DD44B9;
   animation: comboScale 0.2s ease-out 0.05s both;
   font-family: 'Impact', 'Arial Black', 'Helvetica', sans-serif;
   letter-spacing: 2px;

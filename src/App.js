@@ -65,7 +65,7 @@ function AppContent() {
       walletAddress,
       hasUniversalAccount: !!walletContext?.universalAccount?.address 
     });
-  }, [isConnected, account, walletAddress]);
+  }, [isConnected, account, walletAddress, walletContext?.universalAccount?.address]);
   
   const [particles, setParticles] = useState([]);
   const [showLanding, setShowLanding] = useState(true);

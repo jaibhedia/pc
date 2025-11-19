@@ -1,13 +1,16 @@
 /* Unified Design System for Push Ninja */
 
 :root {
-  /* Primary Colors */
-  --ninja-gold: #FFD700;
+  /* Primary Colors - Push Chain Brand */
+  --ninja-gold: #DD44B9; /* Push Chain Pink - Primary Accent */
   --ninja-dark: #1a1a2e;
   --ninja-darker: #0f0f1e;
   --ninja-blue: #4169E1;
   --ninja-green: #00FF88;
   --ninja-red: #FF4444;
+  --push-pink: #DD44B9; /* Push Chain Primary Pink */
+  --push-pink-light: #F75FE3; /* Lighter shade for hovers */
+  --push-pink-dark: #C633A3; /* Darker shade for active states */
   
   /* Glassmorphism */
   --glass-bg: rgba(255, 255, 255, 0.08);
@@ -18,7 +21,7 @@
   --shadow-sm: 0 4px 24px rgba(0, 0, 0, 0.15);
   --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.3);
-  --shadow-glow: 0 0 30px rgba(255, 215, 0, 0.4);
+  --shadow-glow: 0 0 30px rgba(221, 68, 185, 0.5);
   
   /* Typography */
   --font-impact: 'Impact', 'Arial Black', sans-serif;
@@ -47,8 +50,8 @@
   right: 0;
   bottom: 0;
   background: 
-    radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(65, 105, 225, 0.1) 0%, transparent 50%);
+    radial-gradient(circle at 20% 30%, rgba(221, 68, 185, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(247, 95, 227, 0.1) 0%, transparent 50%);
   pointer-events: none;
   animation: backgroundPulse 10s ease-in-out infinite;
 }
@@ -162,15 +165,15 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), transparent);
+  background: linear-gradient(135deg, rgba(221, 68, 185, 0.15), transparent);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .unified-card:hover {
   transform: translateY(-5px);
-  border-color: var(--ninja-gold);
-  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.3);
+  border-color: var(--push-pink);
+  box-shadow: 0 8px 32px rgba(221, 68, 185, 0.4);
 }
 
 .unified-card:hover::before {
@@ -179,18 +182,18 @@
 
 /* Unified Button */
 .unified-button {
-  background: linear-gradient(135deg, var(--ninja-gold), #FFA500);
+  background: linear-gradient(135deg, var(--push-pink), var(--push-pink-light));
   border: none;
   border-radius: 12px;
   padding: 16px 32px;
   font-size: 18px;
   font-weight: 900;
-  color: #000;
+  color: #fff;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: var(--font-impact);
   letter-spacing: 1px;
-  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+  box-shadow: 0 4px 20px rgba(221, 68, 185, 0.5);
   position: relative;
   overflow: hidden;
 }
@@ -212,7 +215,7 @@
 
 .unified-button:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 30px rgba(255, 215, 0, 0.6);
+  box-shadow: 0 6px 30px rgba(221, 68, 185, 0.7);
 }
 
 .unified-button:active {

@@ -297,22 +297,13 @@ class MultiplayerGameService {
   }
 
   async getPlayerStats(address) {
-    try {
-      // Return default stats - view function has issues
-      return {
-        games_played: 0,
-        games_won: 0,
-        total_wagered: 0,
-        total_winnings: 0
-      };
-    } catch (error) {
-      return {
-        games_played: 0,
-        games_won: 0,
-        total_wagered: 0,
-        total_winnings: 0
-      };
-    }
+    // Return default stats - view function has issues
+    return {
+      games_played: 0,
+      games_won: 0,
+      total_wagered: 0,
+      total_winnings: 0
+    };
   }
 
   async getGame(gameId) {
@@ -360,4 +351,5 @@ class MultiplayerGameService {
   }
 }
 
-export default new MultiplayerGameService();
+const multiplayerGameService = new MultiplayerGameService();
+export default multiplayerGameService;
